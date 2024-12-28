@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription Mutuelle Santé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Inscription à la Mutuelle Santé</h1>
+        <p>Remplissez ce formulaire pour obtenir votre estimation.</p>
+    </header>
+    <main>
+        <form action="/process" method="POST">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required>
+
+            <label for="carte_vitale">N° Carte Vitale :</label>
+            <input type="text" id="carte_vitale" name="carte_vitale" required>
+
+            <label for="date_naissance">Date de Naissance :</label>
+            <div id="date_naissance">
+                <select name="jour" required>
+                    <option value="" disabled selected>Jour</option>
+                    {% for i in range(1, 32) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select name="mois" required>
+                    <option value="" disabled selected>Mois</option>
+                    {% for mois in ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
+                    <option value="{{ loop.index }}">{{ mois }}</option>
+                    {% endfor %}
+                </select>
+                <select name="annee" required>
+                    <option value="" disabled selected>Année</option>
+                    {% for i in range(1920, date.today().year + 1) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <fieldset>
+                <legend>Questionnaire de Santé :</legend>
+                <label>
+                    Avez-vous des antécédents familiaux de maladies graves ?
+                    <input type="radio" name="q1" value="Oui" required> Oui
+                    <input type="radio" name="q1" value="Non"> Non
+                </label>
+                <label>
+                    Fumez-vous régulièrement ?
+                    <input type="radio" name="q2" value="Oui" required> Oui
+                    <input type="radio" name="q2" value="Non"> Non
+                </label>
+                <label>
+                    Faites-vous de l'exercice physique régulièrement ?
+                    <input type="radio" name="q3" value="Oui" required> Oui
+                    <input type="radio" name="q3" value="Non"> Non
+                </label>
+                <label>
+                    Prenez-vous des médicaments de façon chronique ?
+                    <input type="radio" name="q4" value="Oui" required> Oui
+                    <input type="radio" name="q4" value="Non"> Non
+                </label>
+                <label>
+                    Avez-vous subi une hospitalisation dans les deux dernières années ?
+                    <input type="radio" name="q5" value="Oui" required> Oui
+                    <input type="radio" name="q5" value="Non"> Non
+                </label>
+            </fieldset>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </main>
+</body>
+</html>
